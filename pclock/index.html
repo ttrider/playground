@@ -1,0 +1,439 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>P-Clock</title>
+    <style>
+        body {
+            background: #303030;
+        }
+
+        section {
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        svg {
+            flex-grow: 10;
+        }
+
+        @font-face {
+            font-family: 'dial';
+            src: url('dial.ttf.woff') format('woff'),
+                url('dial.ttf.svg#dial') format('svg'),
+                url('dial.ttf.eot'),
+                url('dial.ttf.eot?#iefix') format('embedded-opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        .number {
+            font-family: dial;
+            stroke: #b1afbb;
+            fill: #b1afbb;
+            font-size: 35px;
+            text-anchor: middle;
+        }
+
+        .ampm {
+            font-family: dial;
+            stroke: url(#pattern-checkers);
+            fill: url(#pattern-checkers);
+            font-size: 10px;
+            text-anchor: middle;
+        }
+
+        .hour-line {
+            stroke: #b1afbb;
+            stroke-width: 3px;
+            stroke-linecap: round;
+        }
+
+        .min-line {
+            stroke: #b1afbb;
+            stroke-width: 2px;
+            stroke-linecap: round;
+        }
+
+        .digital {
+            stroke: black;
+            fill: #101010;
+        }
+
+        .minute-arrow {
+
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .checker {
+            fill: #e0e0e0;
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+            viewBox="0 0 500 500" xml:space="preserve" preserveAspectRatio="xMidYMid meet">
+
+            <defs>
+                <radialGradient id="RadialGradient1" cx="0.5" cy="0.5" r="0.55" fx="0.80" fy="0.80">>
+                    <stop offset="0%" stop-color="#00000000" />
+                    <stop offset="70%" stop-color="#00000000" />
+                    <stop offset="100%" stop-color="#161415" />
+                </radialGradient>
+
+                <linearGradient id="arrowGradient" gradientTransform="rotate(90)">
+
+                    <stop offset="0%" stop-color="#ed4b72" />
+                    <stop offset="100%" stop-color="#f1e1c9" />
+                    <!-- <stop offset="70%" stop-color="#4d4947"/> -->
+                </linearGradient>
+
+                <pattern id="pattern-checkers" x="0" y="0" width="2" height="2" patternUnits="userSpaceOnUse">
+                    <!-- Two instances of the same checker, only positioned apart on the `x` and `y` axis -->
+                    <!-- We will define the `fill` in the CSS for flexible use -->
+                    <rect class="checker" x="0" width="1" height="1" y="0"></rect>
+                    <rect class="checker" x="1" width="1" height="1" y="1"></rect>
+                </pattern>
+
+                <filter id="drop-shadow">
+                    <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
+                    <feOffset dx="0" dy="0" result="offsetblur" />
+                    <feFlood flood-color="red" />
+                    <feComposite in2="offsetblur" operator="in" />
+                    <feMerge>
+                        <feMergeNode />
+                        <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                </filter>
+            </defs>
+
+
+
+            <g>
+                <circle cx="250" cy="250" r="200" fill="#4d4947" stroke="#202020" stroke-width="5" />
+                <!-- <circle cx="250" cy="250" r="200" fill="url(#pattern-checkers)"/> -->
+
+
+
+                <!-- <image href="./dial.png" x="50" y="50" height="400" width="400" transform="translate(-4,-4) rotate(0, 250, 250) "/> -->
+
+                <line x1="250" y1="65" x2="250" y2="55" class="hour-line" transform="rotate(0, 250, 250)" />
+                <line x1="250" y1="65" x2="250" y2="55" class="hour-line" transform="rotate(30, 250, 250)" />
+                <line x1="250" y1="65" x2="250" y2="55" class="hour-line" transform="rotate(60, 250, 250)" />
+                <line x1="250" y1="65" x2="250" y2="55" class="hour-line" transform="rotate(90, 250, 250)" />
+                <line x1="250" y1="65" x2="250" y2="55" class="hour-line" transform="rotate(120, 250, 250)" />
+                <line x1="250" y1="65" x2="250" y2="55" class="hour-line" transform="rotate(150, 250, 250)" />
+                <line x1="250" y1="65" x2="250" y2="55" class="hour-line" transform="rotate(180, 250, 250)" />
+                <line x1="250" y1="65" x2="250" y2="55" class="hour-line" transform="rotate(210, 250, 250)" />
+                <line x1="250" y1="65" x2="250" y2="55" class="hour-line" transform="rotate(240, 250, 250)" />
+                <line x1="250" y1="65" x2="250" y2="55" class="hour-line" transform="rotate(270, 250, 250)" />
+                <line x1="250" y1="65" x2="250" y2="55" class="hour-line" transform="rotate(300, 250, 250)" />
+                <line x1="250" y1="65" x2="250" y2="55" class="hour-line" transform="rotate(330, 250, 250)" />
+
+
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(0, 250, 250)" />
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(6, 250, 250)" />
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(12, 250, 250)" />
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(18, 250, 250)" />
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(24, 250, 250)" />
+
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(36, 250, 250)" />
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(42, 250, 250)" />
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(48, 250, 250)" />
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(54, 250, 250)" />
+
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(66, 250, 250)" />
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(72, 250, 250)" />
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(78, 250, 250)" />
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(84, 250, 250)" />
+
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(96, 250, 250)" />
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(102, 250, 250)" />
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(108, 250, 250)" />
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(114, 250, 250)" />
+
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(126, 250, 250)" />
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(132, 250, 250)" />
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(138, 250, 250)" />
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(144, 250, 250)" />
+
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(156, 250, 250)" />
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(162, 250, 250)" />
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(168, 250, 250)" />
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(174, 250, 250)" />
+
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(186, 250, 250)" />
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(192, 250, 250)" />
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(198, 250, 250)" />
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(204, 250, 250)" />
+
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(216, 250, 250)" />
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(222, 250, 250)" />
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(228, 250, 250)" />
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(234, 250, 250)" />
+
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(246, 250, 250)" />
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(252, 250, 250)" />
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(258, 250, 250)" />
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(264, 250, 250)" />
+
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(276, 250, 250)" />
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(282, 250, 250)" />
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(288, 250, 250)" />
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(294, 250, 250)" />
+
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(306, 250, 250)" />
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(312, 250, 250)" />
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(318, 250, 250)" />
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(324, 250, 250)" />
+
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(336, 250, 250)" />
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(342, 250, 250)" />
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(348, 250, 250)" />
+                <line x1="250" y1="60" x2="250" y2="55" class="min-line" transform="rotate(354, 250, 250)" />
+
+
+
+
+
+
+            </g>
+
+            <g>
+                <path class="digital"
+                    d="M149, 386 c-8,2 -28,14 -12,25 70,48 159,48 225,0 c16,-11 -4,-23 -12,-25 c-15,-5 -185,-5 -201,0 z" />
+            </g>
+
+            <g>
+                <rect class="digital" x="235" y="290" width="30" height="45" rx="5" ry="5" />
+
+                <!-- AM/PM-->
+                <g transform="translate(240,294)">
+                    <path stroke="url(#pattern-checkers)" fill="url(#pattern-checkers)"
+                        d="M0,1 l0,16 l1,0 l2,-2 l0,-11 z " />
+                    <path stroke="url(#pattern-checkers)" fill="url(#pattern-checkers)"
+                        d="M0,18 l0,16 l3,-3 l0,-11 l-2,-2 z " />
+                    <path stroke="url(#pattern-checkers)" fill="url(#pattern-checkers)"
+                        d="M20,1 l0,16 l-1,0 l-2,-2 l0,-11 z" />
+                    <path stroke="url(#pattern-checkers)" fill="url(#pattern-checkers)"
+                        d="M20,18 l0,16 l-3,-3 l0,-11 l2,-2 z" id="p-part" />
+                    <path stroke="url(#pattern-checkers)" fill="url(#pattern-checkers)" d="M0,1 l0,18 l3,-3 l0,-12 z "
+                        transform="translate(20,0) rotate(90) " />
+                    <!-- <path stroke="url(#pattern-checkers)" fill="url(#pattern-checkers)" d="M35,1 l0,18 l-3,-3 l0,-12 z "
+                        transform="translate(20,0) rotate(90)" id="a-part"/> -->
+                    <path stroke="url(#pattern-checkers)" fill="url(#pattern-checkers)"
+                        d="M2.5,17.5 l1.5,1.5 l12,0 l1.5,-1.5 l-1.5,-1.5 l-12,0z" />
+                </g>
+            </g>
+
+            <circle class="arroy-circle" cx="250" cy="250" r="30" />
+
+
+            <text class="number" x="250" y="100">12</text>
+            <text class="number" x="328" y="122">1</text>
+            <text class="number" x="390" y="180">2</text>
+            <text class="number" x="410" y="262">3</text>
+            <text class="number" x="390" y="340">4</text>
+            <text class="number" x="115" y="340">8</text>
+            <text class="number" x="90" y="262">9</text>
+            <text class="number" x="115" y="180">10</text>
+            <text class="number" x="172" y="122">11</text>
+
+
+            <!-- hours -->
+            <g transform="translate(216,390) scale(1.1)" id="hours02">
+                <path stroke="url(#pattern-checkers)" fill="url(#pattern-checkers)"
+                    d="M0,1 l0,16 l1,0 l2,-2 l0,-11 z " />
+                <path stroke="url(#pattern-checkers)" fill="url(#pattern-checkers)"
+                    d="M0,18 l0,16 l3,-3 l0,-11 l-2,-2 z " />
+                <path stroke="url(#pattern-checkers)" fill="url(#pattern-checkers)"
+                    d="M20,1 l0,16 l-1,0 l-2,-2 l0,-11 z" />
+                <path stroke="url(#pattern-checkers)" fill="url(#pattern-checkers)"
+                    d="M20,18 l0,16 l-3,-3 l0,-11 l2,-2 z" />
+                <path stroke="url(#pattern-checkers)" fill="url(#pattern-checkers)" d="M0,1 l0,18 l3,-3 l0,-12 z "
+                    transform="translate(20,0) rotate(90) " />
+                <path stroke="url(#pattern-checkers)" fill="url(#pattern-checkers)" d="M35,1 l0,18 l-3,-3 l0,-12 z "
+                    transform="translate(20,0) rotate(90) " />
+                <path stroke="url(#pattern-checkers)" fill="url(#pattern-checkers)"
+                    d="M2.5,17.5 l1.5,1.5 l12,0 l1.5,-1.5 l-1.5,-1.5 l-12,0z" />
+            </g>
+            <!-- hours -->
+            <g transform="translate(190,390) scale(1.1)" id="hours01">
+                <path stroke="url(#pattern-checkers)" fill="url(#pattern-checkers)"
+                    d="M0,1 l0,16 l1,0 l2,-2 l0,-11 z " />
+                <path stroke="url(#pattern-checkers)" fill="url(#pattern-checkers)"
+                    d="M0,18 l0,16 l3,-3 l0,-11 l-2,-2 z " />
+                <path stroke="url(#pattern-checkers)" fill="url(#pattern-checkers)"
+                    d="M20,1 l0,16 l-1,0 l-2,-2 l0,-11 z" />
+                <path stroke="url(#pattern-checkers)" fill="url(#pattern-checkers)"
+                    d="M20,18 l0,16 l-3,-3 l0,-11 l2,-2 z" />
+                <path stroke="url(#pattern-checkers)" fill="url(#pattern-checkers)" d="M0,1 l0,18 l3,-3 l0,-12 z "
+                    transform="translate(20,0) rotate(90) " />
+                <path stroke="url(#pattern-checkers)" fill="url(#pattern-checkers)" d="M35,1 l0,18 l-3,-3 l0,-12 z "
+                    transform="translate(20,0) rotate(90) " />
+                <path stroke="url(#pattern-checkers)" fill="url(#pattern-checkers)"
+                    d="M2.5,17.5 l1.5,1.5 l12,0 l1.5,-1.5 l-1.5,-1.5 l-12,0z" />
+            </g>
+
+            <g id="seconds">
+                <circle cx="250" cy="400" r="3" fill="url(#pattern-checkers)" />
+                <circle cx="250" cy="420" r="3" fill="url(#pattern-checkers)" />
+            </g>
+
+            <!-- minutes -->
+            <g transform="translate(264,390) scale(1.1)" id="minutes01">
+                <path stroke="url(#pattern-checkers)" fill="url(#pattern-checkers)"
+                    d="M0,1 l0,16 l1,0 l2,-2 l0,-11 z " />
+                <path stroke="url(#pattern-checkers)" fill="url(#pattern-checkers)"
+                    d="M0,18 l0,16 l3,-3 l0,-11 l-2,-2 z " />
+                <path stroke="url(#pattern-checkers)" fill="url(#pattern-checkers)"
+                    d="M20,1 l0,16 l-1,0 l-2,-2 l0,-11 z" />
+                <path stroke="url(#pattern-checkers)" fill="url(#pattern-checkers)"
+                    d="M20,18 l0,16 l-3,-3 l0,-11 l2,-2 z" />
+                <path stroke="url(#pattern-checkers)" fill="url(#pattern-checkers)" d="M0,1 l0,18 l3,-3 l0,-12 z "
+                    transform="translate(20,0) rotate(90) " />
+                <path stroke="url(#pattern-checkers)" fill="url(#pattern-checkers)" d="M35,1 l0,18 l-3,-3 l0,-12 z "
+                    transform="translate(20,0) rotate(90) " />
+                <path stroke="url(#pattern-checkers)" fill="url(#pattern-checkers)"
+                    d="M2.5,17.5 l1.5,1.5 l12,0 l1.5,-1.5 l-1.5,-1.5 l-12,0z" />
+            </g>
+            <!-- minutes -->
+            <g transform="translate(290,390) scale(1.1)" id="minutes02">
+                <path stroke="url(#pattern-checkers)" fill="url(#pattern-checkers)"
+                    d="M0,1 l0,16 l1,0 l2,-2 l0,-11 z " />
+                <path stroke="url(#pattern-checkers)" fill="url(#pattern-checkers)"
+                    d="M0,18 l0,16 l3,-3 l0,-11 l-2,-2 z " />
+                <path stroke="url(#pattern-checkers)" fill="url(#pattern-checkers)"
+                    d="M20,1 l0,16 l-1,0 l-2,-2 l0,-11 z" />
+                <path stroke="url(#pattern-checkers)" fill="url(#pattern-checkers)"
+                    d="M20,18 l0,16 l-3,-3 l0,-11 l2,-2 z" />
+                <path stroke="url(#pattern-checkers)" fill="url(#pattern-checkers)" d="M0,1 l0,18 l3,-3 l0,-12 z "
+                    transform="translate(20,0) rotate(90) " />
+                <path stroke="url(#pattern-checkers)" fill="url(#pattern-checkers)" d="M35,1 l0,18 l-3,-3 l0,-12 z "
+                    transform="translate(20,0) rotate(90) " />
+                <path stroke="url(#pattern-checkers)" fill="url(#pattern-checkers)"
+                    d="M2.5,17.5 l1.5,1.5 l12,0 l1.5,-1.5 l-1.5,-1.5 l-12,0z" />
+            </g>
+
+            
+            <text class="ampm" x="328" y="410" >PM</text>
+
+
+            <!-- hour arrow-->
+            <g transform="rotate(0,250,250)" id="pclock-hours">
+                <path class="minute-arrow" fill="black" d="M245,230 l10,0 l1,55 c0,6 -12,6 -12,0 z " />
+                <path class="minute-arrow" fill="url(#arrowGradient)"
+                    d="M245,230 c -0,5 10,5 10,0 l-3.5,-105 c0,-5 -3,-5 -3,0 l-3.5,105" filter="url(#drop-shadow)" />
+            </g>
+
+            <!-- minute arrow-->
+            <g transform="rotate(0,250,250)" id="pclock-minutes">
+                <path class="minute-arrow" fill="black" d="M245,230 l10,0 l1,55 c0,6 -12,6 -12,0 z " />
+                <path class="minute-arrow" fill="url(#arrowGradient)"
+                    d="M245,230 c -0,5 10,5 10,0 l-3.5,-160 c0,-5 -3,-5 -3,0 l-3.5,160" filter="url(#drop-shadow)" />
+            </g>
+
+            <g transform="rotate(0,250,250)" id="pclock-seconds">
+                <path class="minute-arrow" fill="black" d="M248,230 l4,0 l0,50 c0,3 -4,3 -4,0 z " />
+                <path class="minute-arrow" fill="url(#arrowGradient)"
+                    d="M248,230 c -0,2 4,2 4,0 l-1,-165 c0,-5 -2,-5 -2,0 l-1,165" filter="url(#drop-shadow)" />
+            </g>
+
+
+
+
+
+            <circle cx="250" cy="250" r="200" fill="url(#RadialGradient1)" opacity="1" />
+
+
+            <script>
+                //         <![CDATA[
+
+                var numberMap = [
+                    [true, true, true, true, true, true, false],
+                    [false, false, true, true, false, false, false],
+                    [false, true, true, false, true, true, true],
+                    [false, false, true, true, true, true, true],
+                    [true, false, true, true, false, false, true],
+                    [true, false, false, true, true, true, true],
+                    [true, true, false, true, true, true, true],
+                    [false, false, true, true, true, false, false],
+                    [true, true, true, true, true, true, true],
+                    [true, false, true, true, true, true, true],
+                ]
+
+                var hoursHand = document.getElementById("pclock-hours");
+                var minutesHand = document.getElementById("pclock-minutes");
+                var secondsHand = document.getElementById("pclock-seconds");
+
+                var hours01 = document.getElementById("hours01");
+                var hours02 = document.getElementById("hours02");
+                var minutes01 = document.getElementById("minutes01");
+                var minutes02 = document.getElementById("minutes02");
+
+                var seconds = document.getElementById("seconds");
+
+                var ppart = document.getElementById("p-part");
+
+
+                setInterval(function () {
+
+                    var dt = new Date();
+
+                    var secondsAngle = (dt.getSeconds() * 6) + (6 / 1000 * dt.getMilliseconds());
+                    var minutesAngle = (dt.getMinutes() * 6) + (6 / 60 * dt.getSeconds());
+                    var hoursAngle = (dt.getHours() * 30) + (dt.getMinutes() / 2);
+
+
+                    hoursHand.setAttribute("transform", "rotate(" + hoursAngle + ",250,250)");
+                    minutesHand.setAttribute("transform", "rotate(" + minutesAngle + ",250,250)");
+                    secondsHand.setAttribute("transform", "rotate(" + secondsAngle + ",250,250)");
+
+
+                    updateNumber(minutes02, dt.getMinutes() % 10);
+                    updateNumber(minutes01, Math.floor((dt.getMinutes() / 10)) % 10);
+
+                    var hrs = dt.getHours();
+                    if (hrs > 12) {
+                        hrs = hrs - 12;
+                    } 
+
+                    ppart.setAttribute("style", (hrs < 12) ? undefined : "display: none");
+
+                    updateNumber(hours02, hrs % 10);
+
+                    updateNumber(hours01, Math.floor((hrs / 10)) % 10);
+
+
+                    var showSecs = dt.getSeconds() % 2;
+                    seconds.setAttribute("style", (showSecs) ? undefined : "display: none");
+
+
+
+                }, 50);
+
+                function updateNumber(el, value) {
+                    var parts = el.children;
+                    var flags = numberMap[value % 10];
+
+                    for (var i = 0; i < flags.length; i++) {
+                        parts[i].setAttribute("style", (flags[i]) ? undefined : "display: none");
+                    }
+                }
+// ]]>
+            </script>
+        </svg>
+    </section>
+
+</body>
+
+</html>
